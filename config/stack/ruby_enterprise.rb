@@ -7,6 +7,9 @@ package :ruby_enterprise do
   source "http://rubyforge.org/frs/download.php/55511/ruby-enterprise-#{version}.tar.gz" do
     custom_install 'sudo ./installer --auto=/usr/local/ruby-enterprise'
     
+    # Update RubyGems
+    post :install, "sudo #{install_path}/bin/gem update --system"
+
     binaries.each {|bin| post :install, "ln -s #{install_path}/bin/#{bin} /usr/local/bin/#{bin}" }
   end
   
